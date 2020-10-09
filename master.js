@@ -7,6 +7,16 @@
 
 	var socket = io.connect( multiplex.url );
 
+	window.post2 = function post22(evt,x,y) {
+		var messageData = {
+			state: Reveal.getState(),
+			secret: multiplex.secret,
+			socketId: multiplex.id
+		};
+        console.log("post2");
+		socket.emit( 'multiplex-draw', messageData );
+    }
+
 	function post() {
 
 		var messageData = {
