@@ -7,10 +7,10 @@
 
 	var socket = io.connect( multiplex.url );
 
-	window.post2 = function post22(evt,x,y) {
+	window.post2 = function post22(evt,x,y,c) {
 		var messageData = {
             cmd: evt,
-            xx: x, yy: y,
+            xx: x, yy: y, cw: c,
 			state: Reveal.getState(),
 			secret: multiplex.secret,
 			socketId: multiplex.id

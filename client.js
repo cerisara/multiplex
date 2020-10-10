@@ -13,11 +13,11 @@
             Reveal.setState(data.state);
         } else if (data.cmd === 'start') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                window.RevealChalkboard.draw0(data.xx,data.yy);
+                window.RevealChalkboard.draw0(data.xx,data.yy,data.cw);
             }
         } else if (data.cmd === 'segm') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                window.RevealChalkboard.draw1(data.xx,data.yy);
+                window.RevealChalkboard.draw1(data.xx,data.yy,data.cw);
             }
         } else if (data.cmd === 'end') {
             if (typeof window.RevealChalkboard !== "undefined") {
