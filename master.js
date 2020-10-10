@@ -10,6 +10,7 @@
 	window.post2 = function post22(evt,x,y) {
 		var messageData = {
             cmd: evt,
+            xx: x, yy: y,
 			state: Reveal.getState(),
 			secret: multiplex.secret,
 			socketId: multiplex.id

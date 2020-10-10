@@ -8,17 +8,16 @@
 		if (data.socketId !== socketId) { return; }
 		if( window.location.host === 'localhost:1947' ) return;
 
-        console.log("got "+data.cmd);
+        console.log("revealjs "+window.RevealChalkboard.id);
         if (data.cmd === 'state') {
             Reveal.setState(data.state);
         } else if (data.cmd === 'start') {
-            console.log("startdrawing ? "+ typeof startDrawing);
-            if (typeof startDrawing === "function") {
-                startDrawing(x,y,false);
+            if (typeof window.RevealChalkboard !== "undefined") {
+                window.RevealChalkboard.startDrawing(data.xx,data.yy,false);
             }
         } else if (data.cmd === 'segm') {
-            if (typeof drawSegment === "function") {
-                drawSegment(x,y,false);
+            if (typeof window.RevealChalkboard !== "undefined") {
+                window.RevealChalkboard.drawSegment(data.xx,data.yy,false);
             }
         }
 	});
