@@ -8,6 +8,18 @@
 		if (data.socketId !== socketId) { return; }
 		if( window.location.host === 'localhost:1947' ) return;
 
-		Reveal.setState(data.state);
+        console.log("got "+data.cmd);
+        if (data.cmd === 'state') {
+            Reveal.setState(data.state);
+        } else if (data.cmd === 'start') {
+            console.log("startdrawing ? "+ typeof startDrawing);
+            if (typeof startDrawing === "function") {
+                startDrawing(x,y,false);
+            }
+        } else if (data.cmd === 'segm') {
+            if (typeof drawSegment === "function") {
+                drawSegment(x,y,false);
+            }
+        }
 	});
 }());

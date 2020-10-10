@@ -9,17 +9,19 @@
 
 	window.post2 = function post22(evt,x,y) {
 		var messageData = {
+            cmd: evt,
 			state: Reveal.getState(),
 			secret: multiplex.secret,
 			socketId: multiplex.id
 		};
         console.log("post2");
-		socket.emit( 'multiplex-draw', messageData );
+		socket.emit( 'multiplex-statechanged', messageData );
     }
 
 	function post() {
 
 		var messageData = {
+            cmd: 'state',
 			state: Reveal.getState(),
 			secret: multiplex.secret,
 			socketId: multiplex.id
