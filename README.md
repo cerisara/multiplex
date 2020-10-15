@@ -1,3 +1,18 @@
+
+This is a modification of the original Multiplex plugin in order to make it
+compatible with the chalkboard plugin in my github ( https://github.com/cerisara/reveal.js-plugins )
+Hence, you can draw on your master slides, and your drawings will be automatically
+sent to the client slides.
+
+Limitations:
+
+- you cannot erase a drawing for now
+- When zooming too much in a slide, there is a shift in the Y axis on the client
+
+Please find below the original README.
+
+----------------
+
 # Multiplex Plugin
 
 The multiplex plugin allows your audience to view the slides of the reveal.js presentation you are controlling on their own phone, tablet or laptop. As the master presentation navigates the slides, all client presentations will update in real time. See a demo at <https://reveal-multiplex.glitch.me/>).
