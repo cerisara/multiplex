@@ -3,6 +3,24 @@
 	var socketId = multiplex.id;
 	var socket = io.connect(multiplex.url);
 
+    function keyp(c) {
+        var keyboardEvent = document.createEvent("KeyboardEvent");
+        var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
+        keyboardEvent[initMethod](
+          "keydown", // event type: keydown, keyup, keypress
+          true,      // bubbles
+          true,      // cancelable
+          window,    // view: should be window
+          false,     // ctrlKey
+          false,     // altKey
+          false,     // shiftKey
+          false,     // metaKey
+          40,        // keyCode: unsigned long - the virtual key code, else 0
+          0          // charCode: unsigned long - the Unicode character associated with the depressed key, else 0
+        );
+        document.dispatchEvent(keyboardEvent);
+    }
+
 	socket.on(multiplex.id, function(data) {
 		// ignore data from sockets that aren't ours
 		if (data.socketId !== socketId) { return; }
@@ -12,58 +30,21 @@
             Reveal.setState(data.state);
         } else if (data.cmd === 'start') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                var canvas = document.getElementById('chalkboard');
-                for (i=0;i<canvas.children.length;i++) {
-                    e = canvas.children[i];
-                    if (e.nodeName=="CANVAS") {
-                        e.setAttribute('data-chalkboard',0);
-                        var ev = new MouseEvent('mousedown', {
-                            'view': window,
-                            'bubbles': true,
-                            'cancelable': true,
-                            'clientX': data.xx,
-                            'clientY': data.yy 
-                        });
-                        e.dispatchEvent(ev);
-                        break;
-                    }
-                }
+                var message = new CustomEvent('received');
+                message.content = { sender: 'chalkboard-plugin', type: 'startDrawing', x: data.xx, y: data.yy, erase: false};
+                document.dispatchEvent( message );
             }
         } else if (data.cmd === 'segm') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                var canvas = document.getElementById('chalkboard');
-                for (i=0;i<canvas.children.length;i++) {
-                    e = canvas.children[i];
-                    if (e.nodeName=="CANVAS") {
-                        e.setAttribute('data-chalkboard',0);
-                        var ev = new MouseEvent('mousemove', {
-                            'view': window,
-                            'bubbles': true,
-                            'cancelable': true,
-                            'clientX': data.xx,
-                            'clientY': data.yy 
-                        });
-                        e.dispatchEvent(ev);
-                        break;
-                    }
-                }
+                var message = new CustomEvent('received');
+                message.content = { sender: 'chalkboard-plugin', type: 'drawSegment', x: data.xx, y: data.yy, erase: false};
+                document.dispatchEvent( message );
             }
         } else if (data.cmd === 'end') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                var canvas = document.getElementById('chalkboard');
-                for (i=0;i<canvas.children.length;i++) {
-                    e = canvas.children[i];
-                    if (e.nodeName=="CANVAS") {
-                        e.setAttribute('data-chalkboard',0);
-                        var ev = new MouseEvent('mouseup', {
-                            'view': window,
-                            'bubbles': true,
-                            'cancelable': true,
-                        });
-                        e.dispatchEvent(ev);
-                        break;
-                    }
-                }
+                var message = new CustomEvent('received');
+                message.content = { sender: 'chalkboard-plugin', type: 'stopDrawing', erase: false};
+                document.dispatchEvent( message );
             }
         }
 	});
