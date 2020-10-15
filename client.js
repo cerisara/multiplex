@@ -8,20 +8,62 @@
 		if (data.socketId !== socketId) { return; }
 		if( window.location.host === 'localhost:1947' ) return;
 
-        console.log("revealjs "+window.RevealChalkboard.id);
         if (data.cmd === 'state') {
             Reveal.setState(data.state);
         } else if (data.cmd === 'start') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                window.RevealChalkboard.draw0(data.xx,data.yy,data.cw);
+                var canvas = document.getElementById('chalkboard');
+                for (i=0;i<canvas.children.length;i++) {
+                    e = canvas.children[i];
+                    if (e.nodeName=="CANVAS") {
+                        e.setAttribute('data-chalkboard',0);
+                        var ev = new MouseEvent('mousedown', {
+                            'view': window,
+                            'bubbles': true,
+                            'cancelable': true,
+                            'clientX': data.xx,
+                            'clientY': data.yy 
+                        });
+                        e.dispatchEvent(ev);
+                        break;
+                    }
+                }
             }
         } else if (data.cmd === 'segm') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                window.RevealChalkboard.draw1(data.xx,data.yy,data.cw);
+                var canvas = document.getElementById('chalkboard');
+                for (i=0;i<canvas.children.length;i++) {
+                    e = canvas.children[i];
+                    if (e.nodeName=="CANVAS") {
+                        e.setAttribute('data-chalkboard',0);
+                        var ev = new MouseEvent('mousemove', {
+                            'view': window,
+                            'bubbles': true,
+                            'cancelable': true,
+                            'clientX': data.xx,
+                            'clientY': data.yy 
+                        });
+                        e.dispatchEvent(ev);
+                        break;
+                    }
+                }
             }
         } else if (data.cmd === 'end') {
             if (typeof window.RevealChalkboard !== "undefined") {
-                window.RevealChalkboard.draw2(data.xx,data.yy);
+                var canvas = document.getElementById('chalkboard');
+                for (i=0;i<canvas.children.length;i++) {
+                    e = canvas.children[i];
+                    if (e.nodeName=="CANVAS") {
+                        e.setAttribute('data-chalkboard',0);
+                        var ev = new MouseEvent('mouseup', {
+                            'view': window,
+                            'bubbles': true,
+                            'cancelable': true,
+                        });
+                        e.dispatchEvent(ev);
+                        break;
+                    }
+                }
             }
         }
 	});

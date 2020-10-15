@@ -7,6 +7,28 @@
 
 	var socket = io.connect( multiplex.url );
 
+    document.addEventListener('send', event => {
+		var messageData = {
+            cmd: '', xx: 0, yy: 0,
+			state: Reveal.getState(),
+			secret: multiplex.secret,
+			socketId: multiplex.id
+		};
+        var e = event.content.type;
+        if (e==="startDrawing") {
+            messageData.cmd = 'start';
+            messageData.xx = event.content.x;
+            messageData.yy = event.content.y;
+        } else if (e==="drawSegment") {
+            messageData.cmd = 'segm';
+            messageData.xx = event.content.x;
+            messageData.yy = event.content.y;
+        } else if (e==="stopDrawing") {
+            messageData.cmd = 'end';
+        }
+		socket.emit( 'multiplex-statechanged', messageData );
+    });
+
 	window.post2 = function post22(evt,x,y,c) {
 		var messageData = {
             cmd: evt,
@@ -15,7 +37,6 @@
 			secret: multiplex.secret,
 			socketId: multiplex.id
 		};
-        console.log("post2");
 		socket.emit( 'multiplex-statechanged', messageData );
     }
 
