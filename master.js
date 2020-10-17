@@ -30,16 +30,13 @@
     });
 
 	function post() {
-
 		var messageData = {
             cmd: 'state',
 			state: Reveal.getState(),
 			secret: multiplex.secret,
 			socketId: multiplex.id
 		};
-
 		socket.emit( 'multiplex-statechanged', messageData );
-
 	};
 
 	// post once the page is loaded, so the client follows also on "open URL".

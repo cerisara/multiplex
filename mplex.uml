@@ -3,8 +3,9 @@ participant "Client Chalkboard" as CC
 participant "Client Multiplex" as CM
 participant "Master Chalkboard" as MC
 participant "Master Multiplex" as MM
+actor "Teacher" as T
 
-CM -> MM: sio_newclient
+T -> MM: press 'c'
 MM -> MC: evt_newclient
 MC -> MM: evt_send_init(storage)
 MM -> CM: sio_init(storage)
