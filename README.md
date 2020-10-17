@@ -11,7 +11,7 @@ Limitations:
 
 Init process:
 
-![](mplex.eog)
+![](https://github.com/cerisara/multiplex/blob/master/mplex.png)
 
 Please find below the original README.
 
