@@ -33,6 +33,8 @@
             messageData.cmd = 'segm';
             messageData.xx = event.content.x;
             messageData.yy = event.content.y;
+        } else if (e==="resetSlide") {
+            messageData.cmd = 'raz';
         } else if (e==="stopDrawing") {
             messageData.cmd = 'end';
         }
