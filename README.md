@@ -8,6 +8,7 @@ Limitations:
 
 - No support for browser-zooming
 - you cannot erase a drawing for now
+- Positionning of drawings in the clients might be misplaced on smartphones
 
 Init process:
 
