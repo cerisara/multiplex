@@ -1,0 +1,13 @@
+@startuml
+participant "Client Chalkboard" as CC
+participant "Client Multiplex" as CM
+participant "Master Chalkboard" as MC
+participant "Master Multiplex" as MM
+
+CM -> MM: sio_newclient
+MM -> MC: evt_newclient
+MC -> MM: evt_send_init(storage)
+MM -> CM: sio_init(storage)
+CM -> CC: evt_received_init(storage)
+@enduml
+

@@ -1,13 +1,17 @@
 
 This is a modification of the original Multiplex plugin in order to make it
-compatible with the chalkboard plugin in my github ( https://github.com/cerisara/reveal.js-plugins )
+compatible with the chalkboard plugin.
 Hence, you can draw on your master slides, and your drawings will be automatically
 sent to the client slides.
 
 Limitations:
 
+- No support for browser-zooming
 - you cannot erase a drawing for now
-- When zooming too much in a slide, there is a shift in the Y axis on the client
+
+Init process:
+
+![](mplex.eog)
 
 Please find below the original README.
 

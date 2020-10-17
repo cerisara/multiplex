@@ -21,6 +21,13 @@
         document.dispatchEvent(keyboardEvent);
     }
 
+    function myinit() {
+        var message = new CustomEvent('received');
+        message.content = { sender: 'chalkboard-plugin', type: 'newclient' };
+        document.dispatchEvent( message );
+    }
+	window.addEventListener( 'load', myinit );
+
 	socket.on(multiplex.id, function(data) {
 		// ignore data from sockets that aren't ours
 		if (data.socketId !== socketId) { return; }

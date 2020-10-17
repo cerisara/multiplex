@@ -29,17 +29,6 @@
 		socket.emit( 'multiplex-statechanged', messageData );
     });
 
-	window.post2 = function post22(evt,x,y,c) {
-		var messageData = {
-            cmd: evt,
-            xx: x, yy: y, cw: c, rw: r,
-			state: Reveal.getState(),
-			secret: multiplex.secret,
-			socketId: multiplex.id
-		};
-		socket.emit( 'multiplex-statechanged', messageData );
-    }
-
 	function post() {
 
 		var messageData = {

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="generator" content="pandoc">
+                                <title>olki</title>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+        <link rel="stylesheet" href="./reveal.js/dist/reveal.css">
+        <style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+.reveal.reveal img
+        </style>
+
+        <style>
+.container{
+    display: flex;
+}
+.col{
+    flex: 1;
+}
+
+    section.level2 > h1 {
+        font-size: 150%;
+    }
+
+    section.level1 > h1 {
+        font-size: 250%;
+    }
+
+        </style>
+
+        <link rel="stylesheet" href="./reveal.js/dist/theme/serif.css" id="theme">
+
+        <!--
+            <link rel="stylesheet" href="xtof.css" id="theme">
+        -->
+
+        <link rel="stylesheet" href="./font-awesome.min.css">
+
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section data-markdown="demo.md"
+                         data-separator-vertical="^---"
+                         data-separator-notes="^Note:"
+                         data-separator="^===">
+                </section>
+
+            </div>
+        </div>
+
+        <script src="./reveal.js/dist/reveal.js"></script>
+        <script src="./reveal.js/plugin/markdown/markdown.js"></script>
+        <script src="./reveal.js/plugin/notes/notes.js"></script>
+        <script src="./reveal.js/plugin/math/math.js"></script>
+        <script src="./reveal.js-plugins/chalkboard/plugin.js"></script>
+
+        <script>
+            Reveal.initialize({
+                plugins: [ RevealMarkdown, RevealNotes, RevealMath, RevealChalkboard ],
+                minScale: 0.1,
+                maxScale: 2.0,
+                slideNumber: true,
+                history: true,
+                math: {
+                    mathjax: 'https://cdn.jsdelivr.net/gh/mathjax/mathjax@2.7.8/MathJax.js',
+                    config: 'TeX-AMS_HTML-full',
+                },
+                multiplex: {
+                    secret: null,
+                    id: '9da20fa2f95cc5bd',
+                    url: 'http://sockio.duckdns.org'
+                },
+            });
+
+        </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+    <script src="./multiplex/client.js"></script> <!-- multiplex-master -->
+        
+
+    </body>
+</html>
