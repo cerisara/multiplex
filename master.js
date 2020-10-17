@@ -9,7 +9,7 @@
 
     document.addEventListener('send', event => {
 		var messageData = {
-            cmd: '', xx: 0, yy: 0,
+            cmd: '', xx: 0, yy: 0, sto: null,
 			state: Reveal.getState(),
 			secret: multiplex.secret,
 			socketId: multiplex.id
@@ -19,6 +19,15 @@
             messageData.cmd = 'start';
             messageData.xx = event.content.x;
             messageData.yy = event.content.y;
+        } else if (e==="pressc") {
+            var message = new CustomEvent('newclient');
+            message.content = { };
+            document.dispatchEvent( message );
+            return;
+        } else if (e==="init") {
+            messageData.cmd = 'init';
+            messageData.sto = event.content.storage;
+            socket.emit( 'multiplex-statechanged', messageData );
         } else if (e==="drawSegment") {
             messageData.cmd = 'segm';
             messageData.xx = event.content.x;
