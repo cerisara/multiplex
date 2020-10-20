@@ -3,14 +3,7 @@
 	// Don't emit events from inside of notes windows
 	if ( window.location.search.match( /receiver/gi ) ) { return; }
 
-    Reveal.addKeyBinding({ keyCode: 65, key: 'A', description: 'init clients' }, function() {
-        console.log("key init");
-        var message = new CustomEvent('newclient');
-        message.content = { };
-        document.dispatchEvent( message );
-    });
 	var multiplex = Reveal.getConfig().multiplex;
-
 	var socket = io.connect( multiplex.url );
 
     document.addEventListener('send', event => {
@@ -29,6 +22,7 @@
             messageData.cmd = 'init';
             messageData.sto = event.content.storage;
             socket.emit( 'multiplex-statechanged', messageData );
+            return;
         } else if (e==="drawSegment") {
             messageData.cmd = 'segm';
             messageData.xx = event.content.x;

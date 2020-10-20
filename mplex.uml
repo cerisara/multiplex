@@ -5,8 +5,7 @@ participant "Master Chalkboard" as MC
 participant "Master Multiplex" as MM
 actor "Teacher" as T
 
-T -> MM: press 'a'
-MM -> MC: evt_newclient
+T -> MC: press 'BACKSPACE'
 MC -> MM: evt_send_init(storage)
 MM -> CM: sio_init(storage)
 CM -> CC: evt_received_init(storage)
