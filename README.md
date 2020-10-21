@@ -7,7 +7,7 @@ sent to the client slides.
 Limitations:
 
 - No support for browser-zooming (but supports different screen sizes between master and clients !)
-- It requires for now an initial press on "BACKSPACE" by the master to have correct scaling of drawings in the client; this is annoying and should be removed.
+- It's better to press first "BACKSPACE" on the master to have correct scaling of drawings on the client; this is annoying and should be removed.
 
 Init process:
 
