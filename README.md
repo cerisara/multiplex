@@ -1,13 +1,12 @@
 
-This is a modification of the original Multiplex plugin in order to make it
+This is an extension of the original Multiplex plugin in order to make it
 compatible with the chalkboard plugin.
 Hence, you can draw on your master slides, and your drawings will be automatically
 sent to the client slides.
 
 Limitations:
 
-- No support for browser-zooming
-- you cannot erase a drawing for now
+- No support for browser-zooming (but supports different screen sizes between master and clients !)
 - It requires for now an initial press on "BACKSPACE" by the master to have correct scaling of drawings in the client; this is annoying and should be removed.
 
 Init process:
@@ -16,7 +15,7 @@ Init process:
 
 Bugs so far:
 
-- Sometimes, when going back and forth from slides to slides and occasionally drawing, it becomes not possible any more to activate the "notes canvas" with the "c" key; then, you have to refresh the page to be able to draw again.
+- Sometimes, when going back and forth from slides to slides and occasionally drawing, it becomes not possible any more to activate the "notes canvas" with the "c" key: you have to refresh the page to be able to draw again. I'm not sure it's an issue with this extension or with the original chalkboard plugin, but anyway, it's only a very minor issue.
 
 Please find below the original README.
 
