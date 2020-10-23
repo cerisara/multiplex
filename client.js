@@ -23,6 +23,10 @@
             message.content = { sender: 'chalkboard-plugin', type: 'init', storage: data.sto};
             document.dispatchEvent( message );
             console.log("client sent storage to chalkboard");
+        } else if (data.cmd === 'animate') {
+            if (typeof mplexanim !== null) {
+                mplexanim();
+            }
         } else if (data.cmd === 'raz') {
             var message = new CustomEvent('received');
             message.content = { sender: 'chalkboard-plugin', type: 'resetSlide'};
