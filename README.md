@@ -4,6 +4,13 @@ compatible with the chalkboard plugin.
 Hence, you can draw on your master slides, and your drawings will be automatically
 sent to the client slides.
 
+Compared to the original multiplex plugin, I've basically added support for vanilla javascript events,
+which are transmitted by this plugin from the master to the clients through socket.io, and converted back
+on the clients into vanilla JS events.
+So this means that this enhanced multiplex plugin can be used to transfer basically any kind of events
+from the master to the clients; To demonstrate this possibility, I've thus also added with 2 lines of code
+how to transfer "animate" events, which triggers any kind of JS animation on the clients.
+
 Limitations:
 
 - No support for browser-zooming (but supports different screen sizes between master and clients !)
