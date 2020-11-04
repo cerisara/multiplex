@@ -16,6 +16,10 @@ let opts = {
 };
 
 io.on( 'connection', socket => {
+    socket.on('mplexpoll', data => {
+        socket.broadcast.emit('mplexpoll', data);
+    });
+
 	socket.on('multiplex-statechanged', data => {
 		if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return;
 		if (createHash(data.secret) === data.socketId) {

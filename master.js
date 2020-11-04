@@ -6,6 +6,53 @@
 	var multiplex = Reveal.getConfig().multiplex;
 	var socket = io.connect( multiplex.url );
 
+    // ======================== for polls
+    var pollyes=0;
+    var pollno=0;
+    // fct called when the master press T
+    function initPoll() {
+        // toggle poll on the clients
+		var messageData = { 
+            cmd: 'polltoggle',
+			secret: multiplex.secret,
+			socketId: multiplex.id
+        }
+        socket.emit( 'multiplex-statechanged', messageData );
+        // make the poll buttons visible
+        el = document.getElementById("poverlay");
+        el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+        pollyes=0; pollno=0;
+        document.getElementById("mplexpollyes").innerHTML=""+pollyes;
+        document.getElementById("mplexpollno").innerHTML=""+pollno;
+        document.getElementById("pollbyes").disabled=false;
+        document.getElementById("pollbno").disabled=false;
+    }
+    // util fct called when receiving a poll result from other clients
+    function handlepollres(isyes) {
+        if (isyes==1) {
+            pollyes=pollyes+1;
+            document.getElementById("mplexpollyes").innerHTML=""+pollyes;
+        } else {
+            pollno=pollno+1;
+            document.getElementById("mplexpollno").innerHTML=""+pollno;
+        }
+    }
+    // fct called when the local user press a button to answer the poll
+    function poll(isyes) {
+        document.getElementById("pollbyes").disabled=true;
+        document.getElementById("pollbno").disabled=true;
+        handlepollres(isyes);
+		var messageData = { 
+            cmd: 'pollres', res: isyes
+        }
+        socket.emit( 'mplexpoll', messageData );
+    }
+    window.mplexpoll = poll;
+    socket.on('mplexpoll', data => {
+        handlepollres(data.res);
+    });
+
+    // ========================== for the chalkboard
     document.addEventListener('send', event => {
 		var messageData = {
             cmd: '', xx: 0, yy: 0, sto: null,
@@ -58,5 +105,7 @@
 	Reveal.on( 'overviewshown', post );
 	Reveal.on( 'paused', post );
 	Reveal.on( 'resumed', post );
+
+    Reveal.addKeyBinding( { keyCode: 84, key: 'T', description: 'Poll' }, initPoll );
 
 }());
