@@ -4,6 +4,10 @@ compatible with the chalkboard plugin.
 Hence, you can draw on your master slides, and your drawings will be automatically
 sent to the client slides.
 
+It also adds another functionality: basic polling.
+The master may press 't' at any time, which displays on all clients and master an overlay with
+two polling options; the real-time result of the poll is also displayed on this overaly on all clients and master.
+
 Compared to the original multiplex plugin, I've basically added support for vanilla javascript events,
 which are transmitted by this plugin from the master to the clients through socket.io, and converted back
 on the clients into vanilla JS events.
