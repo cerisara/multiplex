@@ -6,25 +6,29 @@
     // ======================== for polls
     var pollyes=0;
     var pollno=0;
+    var polldone=false;
     // util fct called when receiving a poll result from other clients
     function handlepollres(isyes) {
         if (isyes==1) {
             pollyes=pollyes+1;
-            document.getElementById("mplexpollyes").innerHTML=""+pollyes;
+            if (polldone) document.getElementById("mplexpollyes").innerHTML=""+pollyes;
         } else {
             pollno=pollno+1;
-            document.getElementById("mplexpollno").innerHTML=""+pollno;
+            if (polldone) document.getElementById("mplexpollno").innerHTML=""+pollno;
         }
     }
     // fct called when the local user press a button to answer the poll
     function poll(isyes) {
+        polldone=true;
         document.getElementById("pollbyes").disabled=true;
         document.getElementById("pollbno").disabled=true;
         handlepollres(isyes);
 		var messageData = { 
             cmd: 'pollres', res: isyes
         }
+        for (int i=0;i<20;i++) {
         socket.emit( 'mplexpoll', messageData );
+        }
     }
     window.mplexpoll = poll;
     socket.on('mplexpoll', data => {
@@ -67,7 +71,7 @@
             // make the poll buttons visible
             el = document.getElementById("poverlay");
             el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
-            pollyes=0; pollno=0;
+            pollyes=0; pollno=0; polldone=false;
             document.getElementById("mplexpollyes").innerHTML=""+pollyes;
             document.getElementById("mplexpollno").innerHTML=""+pollno;
             document.getElementById("pollbyes").disabled=false;
