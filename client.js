@@ -11,10 +11,10 @@
     function handlepollres(isyes) {
         if (isyes==1) {
             pollyes=pollyes+1;
-            if (polldone) document.getElementById("mplexpollyes").innerHTML=""+pollyes;
+            if (polldone) {document.getElementById("mplexpollyes").innerHTML=""+pollyes;}
         } else {
             pollno=pollno+1;
-            if (polldone) document.getElementById("mplexpollno").innerHTML=""+pollno;
+            if (polldone) {document.getElementById("mplexpollno").innerHTML=""+pollno;}
         }
     }
     // fct called when the local user press a button to answer the poll
@@ -26,9 +26,7 @@
 		var messageData = { 
             cmd: 'pollres', res: isyes
         }
-        for (int i=0;i<20;i++) {
         socket.emit( 'mplexpoll', messageData );
-        }
     }
     window.mplexpoll = poll;
     socket.on('mplexpoll', data => {
