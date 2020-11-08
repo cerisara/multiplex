@@ -4,7 +4,9 @@ compatible with the chalkboard plugin.
 Hence, you can draw on your master slides, and your drawings will be automatically
 sent to the client slides.
 
-It also adds another functionality: basic polling.
+I'm using this plugin to teach online courses, as explained [in this blog](https://homepages.loria.fr/CCerisara/#teaching).
+
+The plugin also adds another functionality: basic polling.
 The master may press 't' at any time, which displays on all clients and master an overlay with
 two polling options; the real-time result of the poll is also displayed on this overaly on all clients and master.
 
