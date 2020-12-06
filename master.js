@@ -10,6 +10,8 @@
     var pollyes=0;
     var pollno=0;
     var pollvisible=false;
+    socket.emit('iammaster',{'pollvisible':pollvisible});
+
     // fct called when the master press T
     function initPoll() {
         // toggle poll on the clients

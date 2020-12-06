@@ -26,22 +26,29 @@ io.on( 'connection', socket => {
 		}
 	}
 	console.log("MASTER: "+masterClient);
+
 	if (pollon) {
+        // when a (new) client (re-)connect, if there is a poll running, we must show him
 		console.log("resend the pollon event to "+socket.id);
 		// TODO: check the client ID with its IP, and do not resend if the client has already answered poll
 		socket.emit('pollactive',{});
 	}
 
+    socket.on('iammaster', data => {
+        // this msg is sent only once when the master (re-)connect
+		masterClient = socket.id;
+        console.log("GOT master " + data.pollvisible);
+        if (!data.pollvisible) socket.broadcast.emit('pollclosed', {});
+    });
     socket.on('mplexpoll', data => {
         socket.broadcast.emit('mplexpoll', data);
     });
 
 	socket.on('multiplex-statechanged', data => {
 		if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return;
-console.log(data);
+        // this is the master
 		if (data.cmd=="pollactive") pollon=true;
 		else if (data.cmd=="pollclosed") pollon=false;
-		masterClient = socket.id;
 		if (createHash(data.secret) === data.socketId) {
 			data.secret = null;
 			socket.broadcast.emit(data.socketId, data);

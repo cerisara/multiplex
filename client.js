@@ -32,15 +32,21 @@
     socket.on('mplexpoll', data => {
         handlepollres(data.res);
     });
-
-    socket.on('pollactive', data => {
+    function pollvisible(isvisible) {
             el = document.getElementById("poverlay");
-            el.style.visibility = "visible";
+            if (isvisible) el.style.visibility = "visible";
+            else el.style.visibility = "hidden";
             pollyes=0; pollno=0; polldone=false;
             document.getElementById("mplexpollyes").innerHTML=""+pollyes;
             document.getElementById("mplexpollno").innerHTML=""+pollno;
             document.getElementById("pollbyes").disabled=false;
             document.getElementById("pollbno").disabled=false;
+    }
+    socket.on('pollactive', data => {
+        pollvisible(true);
+	});
+    socket.on('pollclosed', data => {
+        pollvisible(false);
 	});
 
     socket.on(multiplex.id, function(data) {
@@ -76,21 +82,9 @@
             message.content = { sender: 'chalkboard-plugin', type: 'stopDrawing', erase: false};
             document.dispatchEvent( message );
         } else if (data.cmd === 'pollactive') {
-            el = document.getElementById("poverlay");
-            el.style.visibility = "visible";
-            pollyes=0; pollno=0; polldone=false;
-            document.getElementById("mplexpollyes").innerHTML=""+pollyes;
-            document.getElementById("mplexpollno").innerHTML=""+pollno;
-            document.getElementById("pollbyes").disabled=false;
-            document.getElementById("pollbno").disabled=false;
+            pollvisible(true);
         } else if (data.cmd === 'pollclosed') {
-            el = document.getElementById("poverlay");
-            el.style.visibility = "hidden";
-            pollyes=0; pollno=0; polldone=false;
-            document.getElementById("mplexpollyes").innerHTML=""+pollyes;
-            document.getElementById("mplexpollno").innerHTML=""+pollno;
-            document.getElementById("pollbyes").disabled=false;
-            document.getElementById("pollbno").disabled=false;
+            pollvisible(false);
         }
 	});
 }());
