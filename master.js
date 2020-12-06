@@ -9,14 +9,17 @@
     // ======================== for polls
     var pollyes=0;
     var pollno=0;
+    var pollvisible=false;
     // fct called when the master press T
     function initPoll() {
         // toggle poll on the clients
-		var messageData = { 
-            cmd: 'polltoggle',
-			secret: multiplex.secret,
-			socketId: multiplex.id
-        }
+	var messageData = { 
+		cmd: 'pollactive',
+		secret: multiplex.secret,
+		socketId: multiplex.id
+	}
+	if (pollvisible) pollvisible=false; else pollvisible=true;
+	if (!pollvisible) messageData.cmd = 'pollclosed';
         socket.emit( 'multiplex-statechanged', messageData );
         // make the poll buttons visible
         el = document.getElementById("poverlay");

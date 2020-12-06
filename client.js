@@ -33,6 +33,16 @@
         handlepollres(data.res);
     });
 
+    socket.on('pollactive', data => {
+            el = document.getElementById("poverlay");
+            el.style.visibility = "visible";
+            pollyes=0; pollno=0; polldone=false;
+            document.getElementById("mplexpollyes").innerHTML=""+pollyes;
+            document.getElementById("mplexpollno").innerHTML=""+pollno;
+            document.getElementById("pollbyes").disabled=false;
+            document.getElementById("pollbno").disabled=false;
+	});
+
     socket.on(multiplex.id, function(data) {
         // ignore data from sockets that aren't ours
         if (data.socketId !== socketId) { return; }
@@ -65,10 +75,17 @@
             var message = new CustomEvent('received');
             message.content = { sender: 'chalkboard-plugin', type: 'stopDrawing', erase: false};
             document.dispatchEvent( message );
-        } else if (data.cmd === 'polltoggle') {
-            // make the poll buttons visible
+        } else if (data.cmd === 'pollactive') {
             el = document.getElementById("poverlay");
-            el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+            el.style.visibility = "visible";
+            pollyes=0; pollno=0; polldone=false;
+            document.getElementById("mplexpollyes").innerHTML=""+pollyes;
+            document.getElementById("mplexpollno").innerHTML=""+pollno;
+            document.getElementById("pollbyes").disabled=false;
+            document.getElementById("pollbno").disabled=false;
+        } else if (data.cmd === 'pollclosed') {
+            el = document.getElementById("poverlay");
+            el.style.visibility = "hidden";
             pollyes=0; pollno=0; polldone=false;
             document.getElementById("mplexpollyes").innerHTML=""+pollyes;
             document.getElementById("mplexpollno").innerHTML=""+pollno;

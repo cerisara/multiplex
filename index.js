@@ -14,14 +14,34 @@ let opts = {
 	port: process.env.PORT || 1948,
 	baseDir : process.cwd()
 };
-
+console.log("**Socket.IO Version: " + require('socket.io/package').version);
+let masterClient = "";
+let pollon = false;
 io.on( 'connection', socket => {
+	console.log("connection, nclients:" + socket.conn.server.clientsCount);
+	console.log("clients: ");
+	for (let i in socket.conn.server.clients) {
+		if (socket.conn.server.clients.hasOwnProperty(i)) {
+			console.log(socket.conn.server.clients[i].id);
+		}
+	}
+	console.log("MASTER: "+masterClient);
+	if (pollon) {
+		console.log("resend the pollon event to "+socket.id);
+		// TODO: check the client ID with its IP, and do not resend if the client has already answered poll
+		socket.emit('pollactive',{});
+	}
+
     socket.on('mplexpoll', data => {
         socket.broadcast.emit('mplexpoll', data);
     });
 
 	socket.on('multiplex-statechanged', data => {
 		if (typeof data.secret == 'undefined' || data.secret == null || data.secret === '') return;
+console.log(data);
+		if (data.cmd=="pollactive") pollon=true;
+		else if (data.cmd=="pollclosed") pollon=false;
+		masterClient = socket.id;
 		if (createHash(data.secret) === data.socketId) {
 			data.secret = null;
 			socket.broadcast.emit(data.socketId, data);
